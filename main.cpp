@@ -30,6 +30,9 @@ int main(int argc, char **args)
 		return 1;
 	}
 	
+	// Set FreeGLUT's keyboard handler
+	glutKeyboardFunc(handleKeys);
+
 	// Whenever FreeGLUT needs to update the screen, call our render() function
 	glutDisplayFunc(render);
 	
