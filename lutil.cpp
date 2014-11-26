@@ -1,14 +1,11 @@
 #include "lutil.h"
 
-// Current color rendering mode
-int gColorMode = COLOR_MODE_CYAN;
-
-// The projection scale
-GLfloat gProjectionScale = 1.0f;
+// Camera position
+GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
 bool initGL()
 {
-	/*	NOTES
+/*	NOTES
 	 *
 	 * The projection and model view matrices are both matrices
 	 * that geometry data is multiplied against before rendering.
@@ -20,6 +17,9 @@ bool initGL()
 	 *
 	 * */
 	
+	// Set the view port
+	glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	// Initialize projection matrix
 	glMatrixMode(GL_PROJECTION);
 
@@ -32,6 +32,9 @@ bool initGL()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	// Save the default modelview matrix
+	glPushMatrix();
 
 	// Set color when 'glClear()' is called (Uses RGBA format, currently black)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -57,9 +60,12 @@ void render()
 	// Clear the color buffer (pixels on the screen)
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	// Reset modelview matrix
+	// Pop default matrix onto current matrix
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glPopMatrix();
+
+	// Save default matrix again
+	glPushMatrix();
 
 	// Move projection view to center of screen
 	glTranslatef(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
@@ -77,51 +83,15 @@ void render()
 	 * 4 sides.
 	 * */
 	
-	if (gColorMode == COLOR_MODE_CYAN)
-	{
-		glBegin(GL_POLYGON);
-			glColor3f(0.0f, 1.0f, 1.0f);
-			glVertex2f(-50.0f, 0.0f);
-			glVertex2f(-25.0f, -50.0f);
-			glVertex2f(25.0f, -50.0f);
-			glVertex2f(50.0f, 0.0f);
-			glVertex2f(25.0f, 50.0f);
-			glVertex2f(-25.0f, 50.0f);
-		glEnd();
-	}
-	else
-	{
-		glBegin(GL_POLYGON);
-			glVertex2f(-50.0f, 0.0f); glColor3f(1.0f, 1.0f, 1.0f);
-			glVertex2f(-25.0f, -50.0f); glColor3f(0.0f, 0.0f, 1.0f);
-			glVertex2f(25.0f, -50.0f); glColor3f(0.0f, 1.0f, 0.0f);
-			glVertex2f(50.0f, 0.0f); glColor3f(0.0f, 1.0f, 1.0f);
-			glVertex2f(25.0f, 50.0f); glColor3f(1.0f, 0.0f, 0.0f);
-			glVertex2f(-25.0f, 50.0f); glColor3f(1.0f, 0.0f, 1.0f);
-		glEnd();
-	}
-
-	/*
-	if (gColorMode == COLOR_MODE_CYAN)
-	{
-		glBegin(GL_QUADS);
-			glColor3f(0.0f, 1.0f, 1.0f);
-			glVertex2f(-50.0f, -50.0f);
-			glVertex2f(50.0f, -50.0f);
-			glVertex2f(50.0f, 50.0f);
-			glVertex2f(-50.0f, 50.0f);
-		glEnd();
-	}
-	else
-	{
-		glBegin(GL_QUADS);
-			glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(-50.0f, -50.0f);
-			glColor3f(1.0f, 1.0f, 0.0f); glVertex2f(50.0f, -50.0f);
-			glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(50.0f, 50.0f);
-			glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(-50.0f, 50.0f);
-		glEnd();
-	}
-	*/
+	glBegin(GL_POLYGON);
+		glVertex2f(-50.0f, 0.0f);
+		glVertex2f(-25.0f, -50.0f);
+		glVertex2f(25.0f, -50.0f);
+		glVertex2f(50.0f, 0.0f);
+		glVertex2f(25.0f, 50.0f);
+		glVertex2f(-25.0f, 50.0f);
+	glEnd();
+	
 	/*
 	 * NOTES
 	 * 
@@ -150,42 +120,34 @@ void render()
 
 void handleKeys(unsigned char key, int x, int y)
 {
-	if (key == 'q')
+	// Handle camera movement
+	if (key == 'w')
 	{
-		// Toggle color more
-		if (gColorMode == COLOR_MODE_CYAN)
-		{
-			gColorMode = COLOR_MODE_MULTI;
-		}
-		else
-		{
-			gColorMode = COLOR_MODE_CYAN;
-		}
+		gCameraY -= 16.0f;
 	}
-	else if (key == 'e')
+	else if (key == 's')
 	{
-		// Cycle through projection scales
-		if (gProjectionScale == 1.0f)
-		{
-			// Zoom out
-			gProjectionScale = 2.0f;
-		}
-		else if (gProjectionScale == 2.0f)
-		{
-			// Zoom in
-			gProjectionScale = 0.5f;
-		}
-		else if (gProjectionScale == 0.5f)
-		{
-			// Regular zoom
-			gProjectionScale = 1.0f;
-		}
+		gCameraY += 16.0f;
+	}
+	else if (key == 'a')
+	{
+		gCameraX -= 16.0f;
+	}
+	else if (key == 'd')
+	{
+		gCameraX += 16.0f;
+	}
 
-		// Update projection matrix changes
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0.0f, SCREEN_WIDTH * gProjectionScale, SCREEN_HEIGHT * gProjectionScale, 0.0f, 1.0f, -1.0f);
-	}
+	// Take saved matrix off the stack and reset it
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glLoadIdentity();
+	
+	// Move camera to position
+	glTranslatef(gCameraX, gCameraY, 0.0f);
+
+	// Save default matrix again with camera translation
+	glPushMatrix();
 }
 
 
