@@ -1,4 +1,4 @@
-FILES = lutil.cpp main.cpp
+FILES = planet.cpp lutil.cpp main.cpp
 
 COMPILER = g++
 

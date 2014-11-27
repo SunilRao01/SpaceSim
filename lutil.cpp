@@ -1,7 +1,13 @@
 #include "lutil.h"
+#include "planet.h"
 
 // Camera position
 GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
+
+// Angle of polygon
+GLfloat gAngle = 0.0f;
+
+planet sun(5, 30, 5, 30);
 
 bool initGL()
 {
@@ -52,7 +58,14 @@ bool initGL()
 
 void update()
 {
+	// Rotate angle of polygon every frame
+	gAngle += 360.0f / SCREEN_FPS;
 
+	// Cap angle
+	if (gAngle > 360.0f)
+	{
+		gAngle -= 360.0f;
+	}
 }
 
 void render()
@@ -83,15 +96,11 @@ void render()
 	 * 4 sides.
 	 * */
 	
-	glBegin(GL_POLYGON);
-		glVertex2f(-50.0f, 0.0f);
-		glVertex2f(-25.0f, -50.0f);
-		glVertex2f(25.0f, -50.0f);
-		glVertex2f(50.0f, 0.0f);
-		glVertex2f(25.0f, 50.0f);
-		glVertex2f(-25.0f, 50.0f);
-	glEnd();
-	
+	// Rotate polygon
+	//glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
+
+	sun.renderPlanet();
+
 	/*
 	 * NOTES
 	 * 
