@@ -16,14 +16,15 @@ class planet
 		{
 			srand(time(0));
 
-			planetWidth = rand() % (maxWidth - minWidth + 1) + maxWidth;
-			planetHeight = rand() % (maxHeight - minHeight + 1) + maxHeight;
+			planetWidth = rand() % maxWidth + minWidth;
+			planetHeight = rand() % maxHeight + minHeight;
 		}
 
 		int getPlanetWidth();
 		int getPlanetHeight();
 
 		void renderPlanet();
+		void renderPlanet(int xOffset, int yOffset);
 	private:
 		int planetWidth;
 		int planetHeight;

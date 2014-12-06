@@ -16,6 +16,10 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_FPS = 60;
 
+// Planet information
+const int minNumPlanets = 1;
+const int maxNumPlanets = 3;
+
 // Initializes the graphics library
 bool initGL();
 

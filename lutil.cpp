@@ -7,7 +7,9 @@ GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 // Angle of polygon
 GLfloat gAngle = 0.0f;
 
-planet sun(5, 30, 5, 30);
+planet sun(15, 30, 15, 30);
+planet *planets;
+int numPlanets;
 
 bool initGL()
 {
@@ -45,12 +47,30 @@ bool initGL()
 	// Set color when 'glClear()' is called (Uses RGBA format, currently black)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+	// Solar system
+	
+	// Create a random numer of planets
+
 	// Check for any OpenGL errors that may occur during initialization
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
 		printf("Error initializing OpenGL! %s\n", gluErrorString(error));
 		return false;
+	}
+
+	// Generate a random number of planets
+	srand(time(0));
+	int num = rand() % maxNumPlanets + minNumPlanets;
+
+	numPlanets = num;
+	planets = (planet *) malloc(numPlanets);
+
+	for (int i = 0; i < numPlanets; i++)
+	{
+		planet tempPlanet(5, 15, 5, 15);
+
+		planets[i] = tempPlanet;
 	}
 
 	return true;
@@ -98,8 +118,24 @@ void render()
 	
 	// Rotate polygon
 	//glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
-
+	
+	// Render predefined sun at center
 	sun.renderPlanet();
+	
+	// Render surrounding planets
+	for (int i = 0; i < numPlanets; i++)
+	{
+		if (i == 0)
+		{
+			planets[i].renderPlanet(0, -40);
+		}
+		else
+		{
+			planets[i].renderPlanet(0, (i+1) * (-20));
+		}
+	}
+	
+
 
 	/*
 	 * NOTES
