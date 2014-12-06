@@ -34,3 +34,8 @@ int planet::getPlanetHeight()
 {
 	return planetHeight;
 }
+
+float planet::getRotationSpeed()
+{
+	return rotationSpeed;
+}

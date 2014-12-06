@@ -1,15 +1,16 @@
 #include "lutil.h"
-#include "planet.h"
-
 // Camera position
 GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
-// Angle of polygon
-GLfloat gAngle = 0.0f;
 
-planet sun(15, 30, 15, 30);
+// Planets
+planet sun(25, 30, 25, 30);
 planet *planets;
 int numPlanets;
+
+
+// Angle of polygon
+float gAngle = 0.0f;
 
 bool initGL()
 {
@@ -68,24 +69,33 @@ bool initGL()
 
 	for (int i = 0; i < numPlanets; i++)
 	{
-		planet tempPlanet(5, 15, 5, 15);
+		planet tempPlanet(5, 25, 5, 25);
 
 		planets[i] = tempPlanet;
 	}
 
+	
+
 	return true;
 }
 
-void update()
+void rotatePlanets()
 {
+	
 	// Rotate angle of polygon every frame
-	gAngle += 360.0f / SCREEN_FPS;
+	gAngle += (360.0f / SCREEN_FPS) * 1.0f;
 
 	// Cap angle
 	if (gAngle > 360.0f)
 	{
 		gAngle -= 360.0f;
 	}
+
+}
+
+void update()
+{
+	rotatePlanets();
 }
 
 void render()
@@ -117,11 +127,13 @@ void render()
 	 * */
 	
 	// Rotate polygon
-	//glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
+	glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
 	
 	// Render predefined sun at center
 	sun.renderPlanet();
 	
+
+
 	// Render surrounding planets
 	for (int i = 0; i < numPlanets; i++)
 	{
@@ -135,7 +147,7 @@ void render()
 		}
 	}
 	
-
+	
 
 	/*
 	 * NOTES
