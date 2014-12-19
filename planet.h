@@ -16,10 +16,13 @@ class planet
 		planet(int minRadius, int maxRadius) 
 		{
 			//srand(time(0));
-
+			float minRotationSpeed = 0.3f;
+			float maxRotationSpeed = 1.5f;
 			radius = rand() % maxRadius + minRadius;
-			//rotationSpeed = minRotationSpeed + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(maxRotationSpeed-minRotationSpeed)));
+			rotationSpeed = minRotationSpeed + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(maxRotationSpeed-minRotationSpeed)));
 		}
+
+		float angle;
 
 		int getPlanetRadius();
 		float getRotationSpeed();

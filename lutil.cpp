@@ -81,15 +81,17 @@ bool initGL()
 
 void rotatePlanets()
 {
-	
-	// Rotate angle of polygon every frame
-	gAngle += (360.0f / SCREEN_FPS) * 1.0f;
-
-	// Cap angle
-	if (gAngle > 360.0f)
+	for (int i = 0; i < numPlanets; i++)
 	{
-		gAngle -= 360.0f;
+		planets[i].angle += (360.0f / SCREEN_FPS) * (0.1f);
+
+		// Cap angle
+		if (planets[i].angle > 360.0f)
+		{
+			planets[i].angle -= 360.0f;
+		}
 	}
+
 
 }
 
@@ -126,9 +128,6 @@ void render()
 	 * 4 sides.
 	 * */
 	
-	// Rotate polygon
-	//glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
-	
 	// Render predefined sun at center
 	sun.renderPlanet();
 	
@@ -137,6 +136,10 @@ void render()
 	// Render surrounding planets
 	for (int i = 0; i < numPlanets; i++)
 	{
+		// Rotate planet
+		glRotatef(planets[i].angle, 0.0f, 0.0f, 1.0f);
+		
+		// Render planet
 		if (i == 0)
 		{
 			planets[i].renderPlanet(0, -60);
