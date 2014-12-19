@@ -4,7 +4,7 @@ GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
 
 // Planets
-planet sun(25, 30, 25, 30);
+planet sun(15, 20);
 planet *planets;
 int numPlanets;
 
@@ -69,7 +69,7 @@ bool initGL()
 
 	for (int i = 0; i < numPlanets; i++)
 	{
-		planet tempPlanet(5, 25, 5, 25);
+		planet tempPlanet(5, 15);
 
 		planets[i] = tempPlanet;
 	}
@@ -127,7 +127,7 @@ void render()
 	 * */
 	
 	// Rotate polygon
-	glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
+	//glRotatef(gAngle, 0.0f, 0.0f, 1.0f);
 	
 	// Render predefined sun at center
 	sun.renderPlanet();
@@ -139,11 +139,11 @@ void render()
 	{
 		if (i == 0)
 		{
-			planets[i].renderPlanet(0, -40);
+			planets[i].renderPlanet(0, -60);
 		}
 		else
 		{
-			planets[i].renderPlanet(0, (i+1) * (-20));
+			planets[i].renderPlanet(0, (i+1) * (-60));
 		}
 	}
 	
