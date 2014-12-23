@@ -139,6 +139,11 @@ void handleKeys(unsigned char key, int x, int y)
 		gCameraX += 16.0f;
 	}
 	*/
+
+	if (key == ' ')
+	{
+		ss.shuffle();
+	}
 	// Take saved matrix off the stack and reset it
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();

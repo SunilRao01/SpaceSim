@@ -40,7 +40,3 @@ int planet::getPlanetRadius()
 	return radius;
 }
 
-float planet::getRotationSpeed()
-{
-	return rotationSpeed;
-}

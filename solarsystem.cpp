@@ -27,7 +27,7 @@ void solarsystem::rotatePlanets()
 {
 	for(int i = 0; i < numPlanets; i++)
 	{
-		planets[i].angle += (360.0f / 60) * (planets[i].getRotationSpeed());
+		planets[i].angle += (360.0f / 60) * (getRotationSpeed());
 
 		// Cap angle
 		if (planets[i].angle >= 360.0f)
@@ -35,4 +35,24 @@ void solarsystem::rotatePlanets()
 			planets[i].angle -= 360.0f;
 		}
 	}
+}
+
+void solarsystem::shuffle()
+{
+	numPlanets = rand() % maxNumPlanets + minNumPlanets;
+	planets = (planet *) malloc(numPlanets * 10);
+	
+	rotationSpeed = 0.05f + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(0.5f-0.05f)));
+	
+	for (int i = 0; i < numPlanets; i++)
+	{
+		planet tempPlanet(5, 15);
+
+		planets[i] = tempPlanet;
+	}
+}
+
+float solarsystem::getRotationSpeed()
+{
+	return rotationSpeed;
 }

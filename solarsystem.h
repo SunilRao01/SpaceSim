@@ -19,11 +19,10 @@ planet *planets;
 int numPlanets;
 	
 	public:
-		solarsystem(int minPlanets, int maxPlanets): sun(15, 20)
+		solarsystem(int minPlanets, int maxPlanets): sun(15, 20), minNumPlanets(minPlanets), maxNumPlanets(maxPlanets)
 		{
 			srand(time(NULL));
 			numPlanets = rand() % maxPlanets + minPlanets;
-			std::cout << "Test";
 			planets = (planet *) malloc(numPlanets * 10);
 
 			for (int i = 0; i < numPlanets; i++)
@@ -32,14 +31,24 @@ int numPlanets;
 
 				planets[i] = tempPlanet;
 			}
+			
+			rotationSpeed = 0.05f + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(0.5f-0.05f)));
 		}
 		~solarsystem()
 		{
 			free(planets);
 		}
-
+		
+		void shuffle();
 		void renderSolarSystem();
 		void rotatePlanets();
+
+		float getRotationSpeed();
+
+	protected:
+		int minNumPlanets;
+		int maxNumPlanets;
+		float rotationSpeed;
 };
 
 #endif
