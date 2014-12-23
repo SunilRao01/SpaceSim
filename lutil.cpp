@@ -3,14 +3,9 @@
 GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
 
-// Planets
-planet sun(15, 20);
-planet *planets;
-int numPlanets;
+// Solar System
+solarsystem ss(1, 3);
 
-
-// Angle of polygon
-float gAngle = 0.0f;
 
 bool initGL()
 {
@@ -48,10 +43,6 @@ bool initGL()
 	// Set color when 'glClear()' is called (Uses RGBA format, currently black)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	// Solar system
-	
-	// Create a random numer of planets
-
 	// Check for any OpenGL errors that may occur during initialization
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
@@ -60,44 +51,13 @@ bool initGL()
 		return false;
 	}
 
-	// Generate a random number of planets
-	srand(time(0));
-	int num = rand() % maxNumPlanets + minNumPlanets;
-
-	numPlanets = num;
-	planets = (planet *) malloc(numPlanets);
-
-	for (int i = 0; i < numPlanets; i++)
-	{
-		planet tempPlanet(5, 15);
-
-		planets[i] = tempPlanet;
-	}
-
-	
-
 	return true;
 }
 
-void rotatePlanets()
-{
-	for (int i = 0; i < numPlanets; i++)
-	{
-		planets[i].angle += (360.0f / SCREEN_FPS) * (0.1f);
-
-		// Cap angle
-		if (planets[i].angle > 360.0f)
-		{
-			planets[i].angle -= 360.0f;
-		}
-	}
-
-
-}
 
 void update()
 {
-	rotatePlanets();
+	ss.rotatePlanets();
 }
 
 void render()
@@ -127,30 +87,9 @@ void render()
 	 * third and fourth another, and fourth and first another, making
 	 * 4 sides.
 	 * */
-	
-	// Render predefined sun at center
-	sun.renderPlanet();
-	
 
-
-	// Render surrounding planets
-	for (int i = 0; i < numPlanets; i++)
-	{
-		// Rotate planet
-		glRotatef(planets[i].angle, 0.0f, 0.0f, 1.0f);
-		
-		// Render planet
-		if (i == 0)
-		{
-			planets[i].renderPlanet(0, -60);
-		}
-		else
-		{
-			planets[i].renderPlanet(0, (i+1) * (-60));
-		}
-	}
-	
-	
+	// Render solar system
+	ss.renderSolarSystem();
 
 	/*
 	 * NOTES
@@ -180,6 +119,8 @@ void render()
 
 void handleKeys(unsigned char key, int x, int y)
 {
+	
+	/*
 	// Handle camera movement
 	if (key == 'w')
 	{
@@ -197,7 +138,7 @@ void handleKeys(unsigned char key, int x, int y)
 	{
 		gCameraX += 16.0f;
 	}
-
+	*/
 	// Take saved matrix off the stack and reset it
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
@@ -208,6 +149,7 @@ void handleKeys(unsigned char key, int x, int y)
 
 	// Save default matrix again with camera translation
 	glPushMatrix();
+	
 }
 
 
