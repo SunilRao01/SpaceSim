@@ -1,16 +1,15 @@
 #include "lutil.h"
 #include <IL/il.h>
 #include <IL/ilu.h>
+#include <ft2build.h>
+#include <string>
+#include FT_FREETYPE_H
+
 // Camera position
 GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
-// Bitmap font
-//lfont gFont;
-
 // Solar System
 solarsystem ss(1, 3);
-
-
 
 bool initGL()
 {
@@ -26,6 +25,26 @@ bool initGL()
 	 *
 	 * */
 	
+	// Initialize FreeType lib (For text rendering)
+	int fontError;
+	FT_Library library;
+	if (FT_Init_FreeType(&library))
+	{
+		printf("Error with FreeType!\n");
+		return false;
+	}
+
+	FT_Face face;
+	fontError = FT_New_Face(library, "dos_font.ttf", 0, &face);
+	if (fontError == FT_Err_Unknown_File_Format)
+	{
+		printf("Unknown file format for font ya goober\n");
+	}
+	else if (fontError)
+	{
+		printf("Error opening font!\n");
+	}
+
 	// Initialize GLEW
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK)

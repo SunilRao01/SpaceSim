@@ -2,9 +2,9 @@ FILES = solarsystem.cpp planet.cpp lutil.cpp main.cpp
 
 COMPILER = g++
 
-COMPILER_FLAGS = -w
+COMPILER_FLAGS = -w -I/usr/include/freetype2
 
-LINKER_FLAGS = -lGL -lGLU -lglut -lIL -lILU  -lGLEW
+LINKER_FLAGS = -lGL -lGLU -lglut -lIL -lILU  -lGLEW -lfreetype
 
 EXEC = spacesim
 
