@@ -3,6 +3,9 @@
 
 // A little wrapper, will allow me use other windowing schema (ala SDL)
 
+// OpenGL Extension
+#include <GL/glew.h>
+
 // freeGLUT: Using windows with OpenGL
 #include <GL/freeglut.h>
 

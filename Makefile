@@ -4,7 +4,7 @@ COMPILER = g++
 
 COMPILER_FLAGS = -w
 
-LINKER_FLAGS = -lGL -lGLU -lglut
+LINKER_FLAGS = -lGL -lGLU -lglut -lIL -lILU  -lGLEW
 
 EXEC = spacesim
 

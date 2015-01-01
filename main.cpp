@@ -29,6 +29,12 @@ int main(int argc, char **args)
 		printf("Unable to initialize graphics library!\n");
 		return 1;
 	}
+
+	if (!loadMedia())
+	{
+		printf("Unable to load media!\n");
+		return 2;
+	}
 	
 	// Set FreeGLUT's keyboard handler
 	glutKeyboardFunc(handleKeys);

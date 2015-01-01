@@ -1,10 +1,15 @@
 #include "lutil.h"
+#include <IL/il.h>
+#include <IL/ilu.h>
 // Camera position
 GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
 
+// Bitmap font
+//lfont gFont;
 
 // Solar System
 solarsystem ss(1, 3);
+
 
 
 bool initGL()
@@ -21,6 +26,22 @@ bool initGL()
 	 *
 	 * */
 	
+	// Initialize GLEW
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK)
+	{
+		printf("Error with GLEW! %s\n", glewGetErrorString(glewError));
+
+		return false;
+	}
+
+	// Make sure current GL version (2.1) is supported
+	if (!GLEW_VERSION_2_1)
+	{
+		printf("OpenGL 2.1 is not supported!\n");
+		return false;
+	}
+
 	// Set the view port
 	glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -51,9 +72,28 @@ bool initGL()
 		return false;
 	}
 
+	// Initialize DevIL and DeviILU
+	ilInit();
+	iluInit();
+	ilClearColour(255, 255, 255, 000);
+
+	// Check for DevIL errors
+	ILenum ilError = ilGetError();
+	if (ilError != IL_NO_ERROR)
+	{
+		printf("Error initializing DevIL! %s\n", iluErrorString(ilError));
+
+		return false;
+	}
+
 	return true;
 }
 
+// Return true if successful, false otherwise
+bool loadMedia()
+{
+	return true;
+}
 
 void update()
 {
@@ -64,6 +104,7 @@ void render()
 {
 	// Clear the color buffer (pixels on the screen)
 	glClear(GL_COLOR_BUFFER_BIT);
+	glLoadIdentity();
 
 	// Pop default matrix onto current matrix
 	glMatrixMode(GL_MODELVIEW);
@@ -74,6 +115,7 @@ void render()
 
 	// Move projection view to center of screen
 	glTranslatef(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
+
 
 	/*
 	 * NOTES
@@ -87,6 +129,7 @@ void render()
 	 * third and fourth another, and fourth and first another, making
 	 * 4 sides.
 	 * */
+
 
 	// Render solar system
 	ss.renderSolarSystem();
@@ -111,6 +154,10 @@ void render()
 	 *
 	 * Holy fuck, I had no clue!
 	 * */
+
+	// Render text
+	//glColor3f(0, 0.5f, 0.5f);
+	//glutStrokeCharacter(GLUT_STROKE_ROMAN, 'H');
 
 	// Update GLUT buffer (our second buffer)
 	glutSwapBuffers();

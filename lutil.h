@@ -23,6 +23,9 @@ const int SCREEN_FPS = 60;
 const float minRotationSpeed = 1.0f;
 const float maxRotationSpeed = 0.1f;
 
+// Initialized GLEW, DevIL, textures
+bool loadMedia();
+
 // Initializes the graphics library
 bool initGL();
 
