@@ -4,7 +4,7 @@ void solarsystem::renderSolarSystem()
 {
 	// Render sun
 	sun.renderPlanet();
-	
+	/*
 	// Render planet
 	for (int i = 0; i < numPlanets; i++)
 	{
@@ -19,7 +19,7 @@ void solarsystem::renderSolarSystem()
 		{
 			planets[i].renderPlanet(0, (i+1) * (-60));
 		}
-	}
+	}*/
 
 }
 

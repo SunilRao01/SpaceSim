@@ -12,18 +12,6 @@ unsigned char image[SCREEN_WIDTH][SCREEN_HEIGHT];
 
 bool initGL()
 {
-/*	NOTES
-	 *
-	 * The projection and model view matrices are both matrices
-	 * that geometry data is multiplied against before rendering.
-	 *
-	 * By setting them both to the identity matrix,
-	 * what every geometry is sent through is what is 
-	 * rendered since the identity matrix simply returns
-	 * the same vector back when you multiply against it.
-	 *
-	 * */
-
 	// Set the view port
 	glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -95,47 +83,8 @@ void render()
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
 	}
 
-	/*
-	 * NOTES
-	 *
-	 * VERTEX ORDER MATTERS
-	 * You can either go in a clockwise or counterclock wise direction.
-	 * For this, I go counterclockwise.
-	 *
-	 * This is because each vertex correlates with a face of the quad.
-	 * The first and second points are one side, second and third another,
-	 * third and fourth another, and fourth and first another, making
-	 * 4 sides.
-	 * */
-
-
 	// Render solar system
 	ss.renderSolarSystem();
-
-	/*
-	 * NOTES
-	 * 
-	 * This program uses a double buffered window. 
-	 *
-	 * There are two buffers: front buffer and back buffer
-	 * The front buffer is what the user sees and the back
-	 * buffer is in memory.
-	 *
-	 * For a double buffered window:
-	 * When we make render calls, all of that is rendered in the back buffer.
-	 * After we're done rendering what we want to show the user, we 
-	 * swap the front and back buffer. 
-	 * 
-	 * When there is a single window buffer,
-	 * the user will see geometry as it's being rendered. 
-	 * This may cause unfinished rendering and tearing.
-	 *
-	 * Holy fuck, I had no clue!
-	 * */
-
-	// Render text
-	//glColor3f(0, 0.5f, 0.5f);
-	//glutStrokeCharacter(GLUT_STROKE_ROMAN, 'H');
 
 	// Update GLUT buffer (our second buffer)
 	glutSwapBuffers();
