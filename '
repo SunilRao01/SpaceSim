@@ -87,9 +87,9 @@ void render()
 	glTranslatef(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
 
 	// Text
-	glRasterPos2i(-300, -200);
+	glRasterPos2i(-300, -100);
 	const unsigned char *c;
-	std::string text = "Basic Solar System Simulation";
+	std::string text = "hello world";
 	for (int i = 0; i < text.size(); ++i)
 	{
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);

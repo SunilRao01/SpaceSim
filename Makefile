@@ -4,7 +4,7 @@ COMPILER = g++
 
 COMPILER_FLAGS = -w -I/usr/include/freetype2
 
-LINKER_FLAGS = -lGL -lGLU -lglut -lIL -lILU  -lGLEW -lfreetype
+LINKER_FLAGS = -lGL -lGLU -lglut
 
 EXEC = spacesim
 

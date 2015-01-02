@@ -11,7 +11,9 @@
 #include "lopengl.h"
 #include "planet.h"
 #include "solarsystem.h"
+
 #include <stdio.h>
+#include <string>
 
 // Screen constants
 const int SCREEN_WIDTH = 640;
