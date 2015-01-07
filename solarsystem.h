@@ -21,6 +21,8 @@ int numPlanets;
 	public:
 		solarsystem(int minPlanets, int maxPlanets): sun(15, 20), minNumPlanets(minPlanets), maxNumPlanets(maxPlanets)
 		{
+			changingParameters = false;
+			
 			srand(time(NULL));
 			numPlanets = rand() % maxPlanets + minPlanets;
 			planets = (planet *) malloc(numPlanets * 10);
@@ -49,6 +51,7 @@ int numPlanets;
 		int minNumPlanets;
 		int maxNumPlanets;
 		float rotationSpeed;
+		bool changingParameters;
 };
 
 #endif

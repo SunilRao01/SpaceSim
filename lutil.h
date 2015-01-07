@@ -37,6 +37,9 @@ void update();
 // Renders the scene
 void render();
 
+// Renders text to the scene
+void renderText(int xPos, int yPos, std::string inputText);
+
 // Function that changes color modes and camera projection with 'q' and 'e'
 void handleKeys(unsigned char key, int x, int y);
 

@@ -87,14 +87,9 @@ void render()
 	glTranslatef(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
 
 	// Text
-	glRasterPos2i(-300, -200);
-	const unsigned char *c;
-	std::string text = "Basic Solar System Simulation";
-	for (int i = 0; i < text.size(); ++i)
-	{
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
-	}
-
+	renderText(-300, -200, "Basic Solar System Simulation");
+	renderText(-300, -180, "Press Spacebar to randomize parameters");
+	
 	/*
 	 * NOTES
 	 *
@@ -142,44 +137,24 @@ void render()
 
 }
 
+void renderText(int xPos, int yPos, std::string inputText)
+{
+	// Position text (0, 0) = Center of screen
+	glRasterPos2i(xPos, yPos);
+
+	const unsigned char *c;
+	for (int i = 0; i < inputText.size(); ++i)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, inputText[i]);
+	}
+}
+
 void handleKeys(unsigned char key, int x, int y)
 {
-	
-	/*
-	// Handle camera movement
-	if (key == 'w')
-	{
-		gCameraY -= 16.0f;
-	}
-	else if (key == 's')
-	{
-		gCameraY += 16.0f;
-	}
-	else if (key == 'a')
-	{
-		gCameraX -= 16.0f;
-	}
-	else if (key == 'd')
-	{
-		gCameraX += 16.0f;
-	}
-	*/
-
 	if (key == ' ')
 	{
 		ss.shuffle();
 	}
-	// Take saved matrix off the stack and reset it
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-	glLoadIdentity();
-	
-	// Move camera to position
-	glTranslatef(gCameraX, gCameraY, 0.0f);
-
-	// Save default matrix again with camera translation
-	glPushMatrix();
-	
 }
 
 
