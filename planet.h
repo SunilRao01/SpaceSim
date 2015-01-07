@@ -28,7 +28,7 @@ class planet
 			float maxRotationSpeed = 0.5f;
 
 			radius = rand() % maxRadius + minRadius;
-			
+			/*
 			int num_segments = 8;
 	
 			for(int ii = 0; ii < num_segments; ii++) 
@@ -74,12 +74,12 @@ class planet
 			glTexCoordPointer(2, GL_FLOAT, sizeof(mVertex), BUFFER_OFFSET(24));
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexVBOID);
-
+			*/
 
 
 
 		}
-		~planet();
+		//~planet();
 
 
 		float angle;

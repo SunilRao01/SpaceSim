@@ -55,7 +55,7 @@ bool loadMedia()
 
 void update()
 {
-	ss.rotatePlanets();
+	//ss.rotatePlanets();
 }
 
 void render()
