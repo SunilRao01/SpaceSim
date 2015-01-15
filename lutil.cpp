@@ -125,7 +125,7 @@ void render()
 	 * the user will see geometry as it's being rendered. 
 	 * This may cause unfinished rendering and tearing.
 	 *
-	 * Holy fuck, I had no clue!
+	 * 
 	 * */
 
 	// Render text
