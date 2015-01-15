@@ -1,9 +1,7 @@
 SpaceSim
 ========
 
-A simple application in order to learn OpenGL.
-
-I WANT TO LEARN OPENGL BUT COLLEGE HAS FAILED ME!
+A simple application in order to learn OpenGL. I wanted to learn OpenGL but unfortunately my college does not teach any graphical programming classes at the moment.
 
 The code is sprinkled with notes that I wrote to myself in order
 to learn some critical concepts.
