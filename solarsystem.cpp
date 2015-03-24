@@ -49,7 +49,7 @@ void solarsystem::shuffle()
 	free(planets);
 
 	numPlanets = rand() % maxNumPlanets + minNumPlanets;
-	planets = (planet *) malloc(numPlanets * 10);
+	planets = (planet *) malloc(1024);
 	
 	rotationSpeed = 0.05f + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(0.5f-0.05f)));
 	

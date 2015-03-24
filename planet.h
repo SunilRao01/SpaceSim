@@ -29,6 +29,8 @@ class planet
 		void renderPlanet(int xOffset, int yOffset);
 	private:
 		int radius;
+		float *vertexArray;
+		int vertexArrayCount;
 };
 
 #endif
