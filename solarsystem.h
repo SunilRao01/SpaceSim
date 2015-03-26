@@ -25,7 +25,7 @@ int numPlanets;
 			
 			srand(time(NULL));
 			numPlanets = rand() % maxPlanets + minPlanets;
-			planets = (planet *) malloc(1024);
+			planets = (planet *) malloc(numPlanets * 100);
 
 			for (int i = 0; i < numPlanets; i++)
 			{

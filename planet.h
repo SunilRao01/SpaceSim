@@ -19,6 +19,8 @@ class planet
 			float maxRotationSpeed = 0.5f;
 
 			radius = rand() % maxRadius + minRadius;
+
+			vertexArrayCount = 0;
 		}
 
 		float angle;
@@ -29,7 +31,9 @@ class planet
 		void renderPlanet(int xOffset, int yOffset);
 	private:
 		int radius;
-		float *vertexArray;
+
+		// TODO: Reimplement VBO object from youtube tutorial (https://www.youtube.com/watch?v=KIeExgOcmv0)
+		float vertexArray[20];
 		int vertexArrayCount;
 };
 
