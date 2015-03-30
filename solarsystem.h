@@ -19,9 +19,12 @@ planet *planets;
 int numPlanets;
 	
 	public:
-		solarsystem(int minPlanets, int maxPlanets): sun(15, 20), minNumPlanets(minPlanets), maxNumPlanets(maxPlanets)
+		// Constructor
+		solarsystem(int minPlanets, int maxPlanets, float cenX, float cenY): sun(15, 20), minNumPlanets(minPlanets), maxNumPlanets(maxPlanets)
 		{
 			changingParameters = false;
+			centerX = cenX;
+			centerY = cenY;
 			
 			srand(time(NULL));
 			numPlanets = rand() % maxPlanets + minPlanets;
@@ -36,6 +39,8 @@ int numPlanets;
 			
 			rotationSpeed = 0.05f + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(0.5f-0.05f)));
 		}
+
+		// Destructor
 		~solarsystem()
 		{
 			free(planets);
@@ -48,10 +53,15 @@ int numPlanets;
 		float getRotationSpeed();
 
 	protected:
+		// Planet variables
 		int minNumPlanets;
 		int maxNumPlanets;
 		float rotationSpeed;
 		bool changingParameters;
+
+		// Solar system positioning variables
+		float centerX;
+		float centerY;
 };
 
 #endif

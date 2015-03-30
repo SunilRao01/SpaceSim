@@ -1,11 +1,14 @@
 #include "lutil.h"
 #include <GL/freeglut.h>
 
-// Camera position
-GLfloat gCameraX = 0.0f, gCameraY = 0.0f;
+// Camera transform position
+int camX, camY, camZ;
+
+const int camMovement = 5;
 
 // Solar System
-solarsystem ss(1, 3);
+solarsystem ss(1, 3, 0.0f, 0.0f);
+solarsystem ss_2(1, 3, 500.0f, 0.0f);
 
 // Fot font rendering
 unsigned char image[SCREEN_WIDTH][SCREEN_HEIGHT];
@@ -68,6 +71,7 @@ bool loadMedia()
 void update()
 {
 	ss.rotatePlanets();
+	ss_2.rotatePlanets();
 }
 
 void render()
@@ -84,9 +88,10 @@ void render()
 	glPushMatrix();
 
 	// Move projection view to center of screen
-	glTranslatef(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
+	glTranslatef(SCREEN_WIDTH / 2.0f + camX, SCREEN_HEIGHT / 2.0f + camY, 0.0f);
 
-	// Text
+
+	// Render Text
 	renderText(-300, -200, "Basic Solar System Simulation");
 	renderText(-300, -180, "Press Spacebar to randomize parameters");
 	
@@ -103,10 +108,11 @@ void render()
 	 * 4 sides.
 	 * */
 
+	// TODO: Add camera movement with arrow keys functionality
 
 	// Render solar system
 	ss.renderSolarSystem();
-
+	ss_2.renderSolarSystem();
 	/*
 	 * NOTES
 	 * 
@@ -127,10 +133,6 @@ void render()
 	 *
 	 * 
 	 * */
-
-	// Render text
-	//glColor3f(0, 0.5f, 0.5f);
-	//glutStrokeCharacter(GLUT_STROKE_ROMAN, 'H');
 
 	// Update GLUT buffer (our second buffer)
 	glutSwapBuffers();
@@ -154,6 +156,24 @@ void handleKeys(unsigned char key, int x, int y)
 	if (key == ' ')
 	{
 		ss.shuffle();
+		ss_2.shuffle();
+	}
+
+	if (key == 'w')
+	{
+		camY += -1 * camMovement;
+	}
+	else if (key == 's')
+	{
+		camY += 1 * camMovement;
+	}
+	else if (key == 'a')
+	{
+		camX += 1 * camMovement;
+	}
+	else if (key == 'd')
+	{
+		camX += -1 * camMovement;
 	}
 }
 

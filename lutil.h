@@ -20,11 +20,6 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_FPS = 60;
 
-// Planet information
-
-const float minRotationSpeed = 1.0f;
-const float maxRotationSpeed = 0.1f;
-
 // Initialized GLEW, DevIL, textures
 bool loadMedia();
 

@@ -4,13 +4,19 @@ void solarsystem::renderSolarSystem()
 {
 	if (!changingParameters)
 	{
+		glPushMatrix();
+		
+		// Center solar system
+		glTranslatef(centerX, centerY, 0.0f);
+		
 		// Render sun
-		sun.renderPlanet();
+		sun.renderPlanet(0, 0);
 	
-		// Render planet
+		// Render planets
 		for (int i = 0; i < numPlanets; i++)
 		{
 			// Rotate planets
+			//glTranslatef(centerX, centerY, 0.0f);
 			glRotatef(planets[i].angle, 0.0f, 0.0f, 1.0f);
 		
 			if (i == 0)
@@ -22,10 +28,13 @@ void solarsystem::renderSolarSystem()
 				planets[i].renderPlanet(0, (i+1) * (-60));
 			}
 		}
+
+		glPopMatrix();
 	}
 
 }
 
+// TODO: Change rotation so it doesn't always rotate around (0, 0)
 void solarsystem::rotatePlanets()
 {
 	if (!changingParameters)

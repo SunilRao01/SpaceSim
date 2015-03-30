@@ -32,7 +32,7 @@ class planet
 	private:
 		int radius;
 
-		// TODO: Reimplement VBO object from youtube tutorial (https://www.youtube.com/watch?v=KIeExgOcmv0)
+		// Use VAO for planets (NOTE: Use VBO for static geometry, use VAO for dynamic)
 		float vertexArray[20];
 		int vertexArrayCount;
 };
